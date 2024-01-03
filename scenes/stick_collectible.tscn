@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqphmud86crot"]
+[gd_scene load_steps=4 format=3 uid="uid://dqphmud86crot"]
 
+[ext_resource type="Script" path="res://Stick_collectible.cs" id="1_r7dtm"]
 [ext_resource type="Texture2D" uid="uid://onqq67758keu" path="res://art/stick-icon.png" id="2_0w87d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57fl0"]
 radius = 12.0
 
 [node name="Stick_collectible" type="StaticBody2D"]
+script = ExtResource("1_r7dtm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0w87d")
