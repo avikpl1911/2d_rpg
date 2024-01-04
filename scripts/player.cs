@@ -8,11 +8,21 @@ public partial class player : CharacterBody2D
 
     string player_state;
 
+	bool bow_equiped = true;
+	bool bow_cooldown = true;
+
+	arrow arw = ResourceLoader.Load<arrow>("res://scenes/arrow.tscn");
+
+	Marker2D marker2d;
+
 	[Export]
 	Inventory inv;
-	
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Ready()
+    {
+		marker2d = GetNode<Marker2D>("Marker2D");
+    }
+    public override void _PhysicsProcess(double delta)
 	{
     Vector2 direction = Input.GetVector("left","right","up","down");
 
@@ -25,6 +35,15 @@ public partial class player : CharacterBody2D
     Velocity = direction * speed; 
 
 	MoveAndSlide();
+
+	Vector2 mouse_pos = GetGlobalMousePosition();
+
+	marker2d.LookAt(mouse_pos);
+
+		if (Input.IsActionJustPressed("left_click") && bow_equiped && bow_cooldown) { 
+			bow_cooldown=false;
+			arw.Rotation = marker2d.Rotation;
+		}
 
     Playanim(direction,player_state);
 	}
