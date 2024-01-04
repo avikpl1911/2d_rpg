@@ -12,7 +12,7 @@ public partial class apple_tree : Node2D
 
     dynamic apple_kk = ResourceLoader.Load("res://scenes/apple_collectable.tscn");
 
-    player plyr;
+    dynamic plyr;
 
 
     [Export]
@@ -38,10 +38,10 @@ public partial class apple_tree : Node2D
     
 
 
-        if (body is CharacterBody2D player) 
+        if (body is player playr) 
         {
             player_in_area = true;
-            plyr = (player)body;
+            plyr = playr;
         }
     }
 
@@ -50,7 +50,7 @@ public partial class apple_tree : Node2D
     {
         //dynamic player = GetNode<CharacterBody2D>("player");
         
-        if (body is CharacterBody2D player)
+        if (body is player playr)
         {
             player_in_area = false;
            
