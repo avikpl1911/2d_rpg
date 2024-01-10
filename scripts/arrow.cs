@@ -18,15 +18,17 @@ public partial class arrow : Area2D
 
 		Vector2 velocity = Vector2.Right*speed;
 		Position += velocity.Rotated(Rotation)*(float)delta;
-
-
-
-
 	}
 
 
 	public void _on_visible_on_screen_enabler_2d_screen_exited()
 	{
 		QueueFree();
+	}
+
+
+	public void ArrowDealDamage()
+	{
+		return;
 	}
 }

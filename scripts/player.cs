@@ -11,6 +11,8 @@ public partial class player : CharacterBody2D
 	bool bow_equiped = false;
 	bool bow_cooldown = true;
 
+	public Camera2D camera = null;
+
     dynamic arw;
 
 	Marker2D marker2d;
@@ -20,6 +22,7 @@ public partial class player : CharacterBody2D
 
     public override void _Ready()
     {
+		camera = GetNode<Camera2D>("Camera2D");
 		marker2d = GetNode<Marker2D>("Marker2D");
 		arw = ResourceLoader.Load("res://scenes/arrow.tscn");
     }

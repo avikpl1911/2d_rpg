@@ -30,7 +30,7 @@ public partial class apple_tree : Node2D
     }
 
 
-    public void OnBodyEntered(CharacterBody2D body)
+    public void OnBodyEntered(Node2D body)
     {
         //dynamic player = GetNode<CharacterBody2D>("player");
         
@@ -45,7 +45,7 @@ public partial class apple_tree : Node2D
         }
     }
 
-    public void OnBodyExited(CharacterBody2D body)
+    public void OnBodyExited(Node2D body)
 
     {
         //dynamic player = GetNode<CharacterBody2D>("player");

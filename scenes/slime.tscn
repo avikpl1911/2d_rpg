@@ -1,37 +1,43 @@
-[gd_scene load_steps=24 format=3 uid="uid://7xxv8dd3g43y"]
+[gd_scene load_steps=28 format=3 uid="uid://7xxv8dd3g43y"]
 
 [ext_resource type="Script" path="res://scripts/slime.cs" id="1_5irhx"]
 [ext_resource type="Texture2D" uid="uid://bfk2mrml311lr" path="res://art/survivalgame-enemy-slime.png" id="1_klmi5"]
+[ext_resource type="Resource" uid="uid://c27xb6axdldup" path="res://inventory/items/slime.tres" id="2_ix3kv"]
+[ext_resource type="PackedScene" uid="uid://do7a6dcdidsk0" path="res://scenes/slime_collectible.tscn" id="3_xs6vs"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ghshl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pay84"]
+atlas = ExtResource("1_klmi5")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yckhw"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(224, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jkgb5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_knh0h"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(256, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_txpot"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g1nm"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(288, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1w077"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkagy"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(320, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gcpt4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aroqq"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(352, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gepub"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkjb2"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(384, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w8h6i"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hudm2"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(416, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ayvi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1tdr"]
 atlas = ExtResource("1_klmi5")
 region = Rect2(448, 0, 32, 32)
 
@@ -75,28 +81,31 @@ region = Rect2(160, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ghshl")
+"texture": SubResource("AtlasTexture_pay84")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jkgb5")
+"texture": SubResource("AtlasTexture_yckhw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_txpot")
+"texture": SubResource("AtlasTexture_knh0h")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1w077")
+"texture": SubResource("AtlasTexture_0g1nm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gcpt4")
+"texture": SubResource("AtlasTexture_rkagy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gepub")
+"texture": SubResource("AtlasTexture_aroqq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w8h6i")
+"texture": SubResource("AtlasTexture_hkjb2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2ayvi")
+"texture": SubResource("AtlasTexture_hudm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1tdr")
 }],
 "loop": true,
 "name": &"death",
@@ -149,8 +158,12 @@ radius = 6.08276
 [sub_resource type="CircleShape2D" id="CircleShape2D_jt4cw"]
 radius = 54.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_widq3"]
+radius = 135.0
+
 [node name="slime" type="CharacterBody2D"]
 script = ExtResource("1_5irhx")
+ItemRes = ExtResource("2_ix3kv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c8p6l")
@@ -172,5 +185,17 @@ shape = SubResource("CircleShape2D_0umw8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 shape = SubResource("CircleShape2D_jt4cw")
 
+[node name="slime_collectible" parent="." instance=ExtResource("3_xs6vs")]
+
+[node name="slime_collectible_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="slime_collectible_area"]
+shape = SubResource("CircleShape2D_widq3")
+disabled = true
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="area_entered" from="slime_collectible_area" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="slime_collectible_area" to="." method="_on_slime_collectible_area_body_entered"]
