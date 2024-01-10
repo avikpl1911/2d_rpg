@@ -19,9 +19,9 @@ public partial class world_2 : Node2D
 
 	bool is_path_following = false;
 
-	bool smoke_has_happened = true;
+	bool smoke_has_happened = false;
 
-	bool smoke_is_happening = true;
+	bool smoke_is_happening = false;
 
 
 	public override void _Ready()
@@ -46,27 +46,28 @@ public partial class world_2 : Node2D
 					CutSceneEnding();
 				
 				}
-				GD.Print("helolooooo");
+				if (!smoke_is_happening)
+				{
+					pathfollower.ProgressRatio += 0.001f;
 
-                if (smoke_is_happening == false)
-                {
-                    pathfollower.ProgressRatio += 0.001f;
 
-                }
-                if (!smoke_has_happened && pathfollower.ProgressRatio >= 0.770 && !smoke_is_happening) {
-					smoke_is_happening = true;
-					//toggle_smoke
-					await ToSignal(GetTree().CreateTimer(1.0f),"timeout");
-					GetNode<TileMap>("world2openingCutscene/TileMapFinished").Visible = true;
-					GetNode<TileMap>("world2openingCutscene/TileMapFUnfinished").Visible = false;
-                    //toggle_smoke
-                    await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
-					smoke_has_happened = true;
 
-					smoke_is_happening = false;
-                }
+					if (!smoke_has_happened && pathfollower.ProgressRatio >= 0.770)
+					{
+						smoke_is_happening = true;
 
-				      
+						//Toggle_smoke
+						await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
+						GetNode<TileMap>("world2openingCutscene/TileMapFinished").Visible = true;
+						GetNode<TileMap>("world2openingCutscene/TileMapFUnfinished").Visible = false;
+						//Toggle_smoke
+						await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+						smoke_has_happened = true;
+
+						smoke_is_happening = false;
+					}
+
+				}      
 				
 			}
 		}
@@ -105,4 +106,15 @@ public partial class world_2 : Node2D
 		GetNode<Node2D>("world2openingCutscene").Visible = false;
         GetNode<Node2D>("world2main").Visible = true;
 	}
+
+   void Toggle_smoke()
+	{
+		GpuParticles2D smoke1 =GetNode<GpuParticles2D>("smokeparticles1");
+        GpuParticles2D smoke2 = GetNode<GpuParticles2D>("smokeparticles2");
+        GpuParticles2D smoke3 = GetNode<GpuParticles2D>("smokeparticles3");
+
+        smoke1.Emitting = !smoke1.Emitting;
+        smoke2.Emitting = !smoke2.Emitting;
+        smoke3.Emitting = !smoke3.Emitting;
+    }
 }
