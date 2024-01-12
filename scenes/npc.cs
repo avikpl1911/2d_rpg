@@ -88,10 +88,10 @@ public partial class npc : CharacterBody2D
 
         if (Input.IsActionJustPressed("chat"))
         {
-            GD.Print("chatting with npc");
+            GetNode<dialogue>("Dialogue").Start();
             is_roaming = false;
             is_chatting = true;
-            animpl.Play("Idle");
+            animpl.Play("idle");
         }
         
     }
@@ -152,6 +152,14 @@ public partial class npc : CharacterBody2D
         GetNode<Timer>("Timer").WaitTime = Choose(new List<double>{0.5,1,1.5});
 
         curr = Choose(new List<current_state> { current_state.IDLE, current_state.NEW_DIR, current_state.MOVE });
+    }
+
+    void _on_dialogue_dilogue_finished()
+    {
+
+        is_chatting = false;
+
+        is_roaming = true;
     }
 }
 
