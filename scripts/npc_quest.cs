@@ -71,7 +71,24 @@ public partial class npc_quest : Control
 				GD.Print("quest1 completed");
 				quest1_active = false;
 				quest1_complete = true;
+				PlayFinishQuestAnim();
 			}
 		}
 	}
+
+    public void StickCollected()
+	{
+		stick++;
+
+		GD.Print("stick for quest");
+	}
+
+	public async void PlayFinishQuestAnim()
+	{
+		GetNode<NinePatchRect>("finished_quest").Visible = true;
+
+		await ToSignal(GetTree().CreateTimer(3.0f),"timeout");
+
+        GetNode<NinePatchRect>("finished_quest").Visible = false;
+    }
 }

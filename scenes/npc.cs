@@ -182,7 +182,7 @@ public partial class npc : CharacterBody2D
 
     void _on_player_stick_collected()
     {
-
+        GetNode<npc_quest>("npc_quest").StickCollected();
     }
 
     void _on_player_apple_collected()

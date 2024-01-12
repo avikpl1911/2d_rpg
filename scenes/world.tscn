@@ -749,13 +749,16 @@ position = Vector2(7, 92)
 [node name="Stick_collectible" parent="." instance=ExtResource("5_u30ga")]
 position = Vector2(72, 23)
 
+[node name="Stick_collectible3" parent="." instance=ExtResource("5_u30ga")]
+position = Vector2(-56, 114)
+
 [node name="player" parent="." instance=ExtResource("1_1nwub")]
 
 [node name="npc" parent="." instance=ExtResource("10_o5xx0")]
 position = Vector2(100, 1)
 
 [node name="slime" parent="." instance=ExtResource("7_kiqxe")]
-position = Vector2(66, 108)
+position = Vector2(180, 130)
 
 [node name="apple_tree" parent="." instance=ExtResource("6_ic4oe")]
 position = Vector2(-64, 58)
@@ -788,3 +791,7 @@ position = Vector2(-454.784, -199.495)
 polygon = PackedVector2Array(-4.21567, 1.49493, 88.7843, -1.50507, 86.7843, 502.495, -36.2157, 506.495)
 
 [node name="world2" parent="." instance=ExtResource("9_4e7am")]
+
+[connection signal="AppleCollected" from="player" to="npc" method="_on_player_apple_collected"]
+[connection signal="SlimeCollected" from="player" to="npc" method="_on_player_slime_collected"]
+[connection signal="StickCollected" from="player" to="npc" method="_on_player_stick_collected"]
