@@ -56,11 +56,11 @@ public partial class world_2 : Node2D
 					{
 						smoke_is_happening = true;
 
-						//Toggle_smoke
-						await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
+                        Toggle_smoke();
+                        await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
 						GetNode<TileMap>("world2openingCutscene/TileMapFinished").Visible = true;
 						GetNode<TileMap>("world2openingCutscene/TileMapFUnfinished").Visible = false;
-						//Toggle_smoke
+						Toggle_smoke();
 						await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
 						smoke_has_happened = true;
 

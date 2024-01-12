@@ -833,6 +833,7 @@ position = Vector2(-22.5, 337)
 shape = SubResource("RectangleShape2D_wb03h")
 
 [node name="Path2D" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_condw")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
