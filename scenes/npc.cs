@@ -92,6 +92,13 @@ public partial class npc : CharacterBody2D
             is_roaming = false;
             is_chatting = true;
             animpl.Play("idle");
+        }else if (Input.IsActionJustPressed("quest"))
+        {
+            GD.Print("quest has started");
+            GetNode<npc_quest>("npc_quest").NextQuest();
+            is_roaming=false;
+            is_chatting = true;
+            animpl.Play("idle");
         }
         
     }
@@ -160,6 +167,27 @@ public partial class npc : CharacterBody2D
         is_chatting = false;
 
         is_roaming = true;
+    }
+
+    void _on_npc_quest_quest_menu_closed()
+    {
+        is_chatting = false;
+        is_roaming = true;
+    }
+
+    void _on_player_slime_collected()
+    {
+
+    }
+
+    void _on_player_stick_collected()
+    {
+
+    }
+
+    void _on_player_apple_collected()
+    {
+
     }
 }
 

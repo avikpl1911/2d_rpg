@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwv5k8leter5p"]
+[gd_scene load_steps=3 format=3 uid="uid://bwv5k8leter5p"]
 
+[ext_resource type="Script" path="res://scripts/npc_quest.cs" id="1_ing83"]
 [ext_resource type="Texture2D" uid="uid://wxyo6dh0qelf" path="res://art/inventory-slot.png" id="1_kkl28"]
 
 [node name="npc_quest" type="Control"]
@@ -7,6 +8,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_ing83")
 
 [node name="quest1_ui" type="NinePatchRect" parent="."]
 offset_left = -44.0
@@ -38,7 +40,27 @@ offset_bottom = 80.0
 scale = Vector2(0.35, 0.35)
 text = "Could you go pick up 3 sticks off the ground?"
 
+[node name="NoButton" type="Button" parent="quest1_ui"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 33.0
+offset_right = 105.0
+offset_bottom = 67.0
+scale = Vector2(0.3, 0.3)
+theme_override_colors/font_color = Color(1, 0.270588, 0.0588235, 1)
+text = "No"
+
+[node name="yesButton" type="Button" parent="quest1_ui"]
+offset_left = 36.631
+offset_top = 33.0599
+offset_right = 86.631
+offset_bottom = 67.0599
+scale = Vector2(0.3, 0.3)
+theme_override_colors/font_color = Color(0, 0.956863, 0, 1)
+text = "Yes"
+
 [node name="no_quest" type="NinePatchRect" parent="."]
+visible = false
 offset_left = -44.0
 offset_top = -93.0
 offset_right = 34.0
@@ -67,3 +89,37 @@ offset_right = 211.0
 offset_bottom = 80.0
 scale = Vector2(0.35, 0.35)
 text = "no current quest please come back later!"
+
+[node name="finished_quest" type="NinePatchRect" parent="."]
+visible = false
+offset_left = -44.0
+offset_top = -93.0
+offset_right = 34.0
+offset_bottom = -45.0
+scale = Vector2(1.20117, 1.27042)
+texture = ExtResource("1_kkl28")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="name" type="RichTextLabel" parent="finished_quest"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 130.0
+offset_bottom = 27.0
+scale = Vector2(0.5, 0.5)
+text = "Worker Quest"
+
+[node name="text" type="RichTextLabel" parent="finished_quest"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 14.0
+offset_right = 211.0
+offset_bottom = 80.0
+scale = Vector2(0.35, 0.35)
+text = "Goodjob!! Thank you so much!!"
+
+[connection signal="pressed" from="quest1_ui/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="quest1_ui/yesButton" to="." method="_on_yes_button_pressed"]

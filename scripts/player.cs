@@ -2,9 +2,19 @@ using Godot;
 using System;
 using System.Runtime.InteropServices;
 
+
+
 public partial class player : CharacterBody2D
 {
-	int speed = 100;
+
+    [Signal]
+    public delegate void StickCollectedEventHandler();
+    [Signal]
+    public delegate void AppleCollectedEventHandler();
+    [Signal]
+    public delegate void SlimeCollectedEventHandler();
+
+    int speed = 100;
 
     string player_state;
 
@@ -172,5 +182,22 @@ public partial class player : CharacterBody2D
 	public void Collect(InventoryItem item) {
 
         inv.Insert(item);
-	}
+
+		GD.Print(item);
+
+		if       (item.ToString() == "<Resource#-9223372009424026332>")
+		{
+			//stick collected
+			EmitSignal(nameof(StickCollected));
+		}else if (item.ToString() == "<Resource#-9223372008635497169>")
+		{
+            //apple collected
+            EmitSignal(nameof(AppleCollected));
+        }
+        else if (item.ToString() == "<Resource#-9223372008635497169>")
+		{
+            //slime collected
+            EmitSignal(nameof(SlimeCollected));
+        }
+    }
 }
